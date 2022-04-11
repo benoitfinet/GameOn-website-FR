@@ -527,3 +527,15 @@ footer {
   }
 }
 
+#textUnderButton {
+  text-align: center;
+  color: #fe142f;
+  font-size: 16px;
+}
+
+.errorMessage {
+  color: #fe142f;
+  font-size: 12px;
+  display: none;
+}
+
