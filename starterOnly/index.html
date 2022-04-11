@@ -60,7 +60,7 @@
               name="reserve"
               action="index.html"
               method="get"
-              onsubmit="return validate(e);"
+              onsubmit="validate(e);"
             >
               <div
                 class="formData">
@@ -71,6 +71,7 @@
                   id="first"
                   name="first"
                   minlength="2"
+                  oninput="firstNameFunction()"
                 /><br>
               </div>
               <p class="errorMessage" id="errorFirst">Veuillez entrer 2 caractères ou plus pour le champ du prénom.</p>
@@ -82,6 +83,7 @@
                   type="text"
                   id="last"
                   name="last"
+                  oninput="lastNameFunction()"
                 /><br>
               </div>
               <p class="errorMessage" id="errorLast">Veuillez entrer 2 caractères ou plus pour le champ du nom.</p>
@@ -93,6 +95,7 @@
                   type="email"
                   id="email"
                   name="email"
+                  oninput="emailFunction()"
                 /><br>
               </div>
               <p class="errorMessage" id="errorEmail">Veuillez entrer une adresse mail correcte.</p>
@@ -104,13 +107,14 @@
                   type="date"
                   id="birthdate"
                   name="birthdate"
+                  oninput="birthDateFunction()"
                 /><br>
               </div>
               <p class="errorMessage" id="errorBirthdate">Vous devez entrer votre date de naissance.</p>
               <div
                 class="formData">
                 <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" oninput="tournamentFunction()">
               </div>
               <p class="errorMessage" id="errorTournament">Veuillez indiquer une valeur.</p>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
@@ -191,6 +195,7 @@
                   type="checkbox"
                   id="checkbox1"
                   checked
+                  oninput="checkBox1Function()"
                 />
                 <label class="checkbox2-label" for="checkbox1" required>
                   <span class="checkbox-icon"></span>

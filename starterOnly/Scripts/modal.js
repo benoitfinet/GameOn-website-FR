@@ -43,78 +43,24 @@ const errorBirthdate = document.getElementById("errorBirthdate");
 const errorTournament = document.getElementById("errorTournament");
 const errorCheckbox1 = document.getElementById("errorCheckbox1");
 
+let firstNameValidation = false;
+let lastNameValidation = false;
+let emailValidation = false;
+let tournamentValidation = false;
+let birthDateValidation = false;
+let checkBox1Validation = false;
+
 form.addEventListener("click", validate);
 
 function validate(e) {
   e.preventDefault();
-
-  let firstNameValidation = false;
-  let lastNameValidation = false;
-  let emailValidation = false;
-  let tournamentValidation = false;
-  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-  let birthDateValidation = false;
-  let checkBox1Validation = false;
-  let radioValidation = false;
-
-  if(firstName.value.length >= 2) {
-    firstNameValidation = true;
-  } else {
-    firstName.style.backgroundColor="#fe142f";
-    animation(firstName);
-    errorFirst.style.display = "block";
-  }
-
-  if(lastName.value.length >= 2) {
-    lastNameValidation = true;
-  } else {
-    lastName.style.backgroundColor="#fe142f";
-    animation(lastName);
-    errorLast.style.display = "block";
-  }
-
-  if(emailRegex.test(email.value)) {
-    emailValidation = true;
-  } else {
-    email.style.backgroundColor="#fe142f";
-    animation(email);
-    errorEmail.style.display = "block";
-  }
-
-  if(tournament.value.length >= 1) {
-    tournamentValidation = true;
-  } else {
-    tournament.style.backgroundColor="#fe142f";
-    animation(tournament);
-    errorTournament.style.display = "block";
-  }
-
-  if(checkBox1.checked) {
-    checkBox1Validation = true;
-  } else {
-    errorCheckbox1.style.display = "block";
-  }
-
-  if(birthDate.valueAsNumber >= 1) {
-    birthDateValidation = true;
-  }
-
-  if(document.querySelectorAll("input[type=radio]:checked")){
-    radioValidation = true;
-  }
-
-  if(firstNameValidation
-    && lastNameValidation
-    && emailValidation
-    && tournamentValidation
-    && checkBox1Validation
-    && birthDateValidation
-    && radioValidation) {
-    closeModal();
-    clearForm();
-  } else {
-    textError.innerHTML = "Certains champs ne sont pas correctement remplis";
-  }
+  firstNameFunction();
+  lastNameFunction();
+  emailFunction();
+  tournamentFunction();
+  checkBox1Function();
+  birthDateFunction();
+  testOK();
 }
 
 function animation(target) {
@@ -134,5 +80,95 @@ function clearForm() {
   birthDate.value = "";
   tournament.value = "";
   checkBox1.value = "";
-  textError.value = "";
+  textError.innerHTML = "";
+  firstNameValidation = false;
+  lastNameValidation = false;
+  emailValidation = false;
+  tournamentValidation = false;
+  birthDateValidation = false;
+  checkBox1Validation = false;
+}
+
+function firstNameFunction() {
+  if(firstName.value.length >= 2) {
+    firstNameValidation = true;
+    errorFirst.style.display = "none";
+    firstName.style.backgroundColor="white";
+  } else {
+    firstName.style.backgroundColor="#fe142f";
+    animation(firstName);
+    errorFirst.style.display = "block";
+  }
+}
+
+function lastNameFunction() {
+  if(lastName.value.length >= 2) {
+    lastNameValidation = true;
+    errorLast.style.display = "none";
+    lastName.style.backgroundColor="white";
+  } else {
+    lastName.style.backgroundColor="#fe142f";
+    animation(lastName);
+    errorLast.style.display = "block";
+  }
+}
+
+function emailFunction() {
+  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  if(emailRegex.test(email.value)) {
+    emailValidation = true;
+    errorEmail.style.display = "none";
+    email.style.backgroundColor="white";
+  } else {
+    email.style.backgroundColor="#fe142f";
+    animation(email);
+    errorEmail.style.display = "block";
+  }
+}
+
+function tournamentFunction() {
+  if(tournament.value.length >= 1) {
+    tournamentValidation = true;
+    errorTournament.style.display = "none";
+    tournament.style.backgroundColor="white";
+  } else {
+    tournament.style.backgroundColor="#fe142f";
+    animation(tournament);
+    errorTournament.style.display = "block";
+  }
+}
+
+function checkBox1Function() {
+  if(checkBox1.checked) {
+    checkBox1Validation = true;
+    errorCheckbox1.style.display = "none";
+  } else {
+    errorCheckbox1.style.display = "block";
+  }
+}
+
+function birthDateFunction() {
+  if(birthDate.valueAsNumber >= 1) {
+    birthDateValidation = true;
+    errorBirthdate.style.display = "none";
+    birthDate.style.backgroundColor="white";
+  } else {
+    animation(birthDate);
+    errorBirthdate.style.display = "block";
+    birthDate.style.backgroundColor="#fe142f";
+  }
+}
+
+function testOK() {
+  if(firstNameValidation
+    && lastNameValidation
+    && emailValidation
+    && tournamentValidation
+    && checkBox1Validation
+    && birthDateValidation) {
+    closeModal();
+    clearForm();
+  } else {
+    textError.innerHTML = "Certains champs ne sont pas correctement remplis";
+  }
 }
