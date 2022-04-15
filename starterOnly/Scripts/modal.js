@@ -24,47 +24,27 @@ function launchModal() {
 
 function closeModal() {
   modalbg.style.display = "none";
+  window.location.reload();
 }
 
-// form validation
+//form validation
 
-const firstName = document.getElementById("first");
-const lastName = document.getElementById("last");
-const email = document.getElementById("email");
-const birthDate = document.getElementById("birthdate");
-const tournament = document.getElementById("quantity");
-const checkBox1 = document.getElementById("checkbox1");
-const form = document.getElementById("formToSend");
+
+const firstnameInput = document.getElementById("first");
+const lastnameInput = document.getElementById("last");
+const emailInput = document.getElementById("email");
+const birthdateInput = document.getElementById("birthdate");
+const tournamentInput = document.getElementById("quantity");
+const checkboxInput = document.getElementById("checkbox1");
+const radioInput = document.getElementsByName("location");
 const textError = document.getElementById("textUnderButton");
-const errorFirst = document.getElementById("errorFirst");
-const errorLast = document.getElementById("errorLast");
-const errorEmail = document.getElementById("errorEmail");
-const errorBirthdate = document.getElementById("errorBirthdate");
-const errorTournament = document.getElementById("errorTournament");
-const errorCheckbox1 = document.getElementById("errorCheckbox1");
 
-let firstNameValidation = false;
-let lastNameValidation = false;
-let emailValidation = false;
-let tournamentValidation = false;
-let birthDateValidation = false;
-let checkBox1Validation = false;
+/**
+ * Appelle l'animation en cas d'erreur
+ */
 
-form.addEventListener("click", validate);
-
-function validate(e) {
-  e.preventDefault();
-  firstNameFunction();
-  lastNameFunction();
-  emailFunction();
-  tournamentFunction();
-  checkBox1Function();
-  birthDateFunction();
-  testOK();
-}
-
-function animation(target) {
-  target.animate([
+function animation(input) {
+  input.animate([
     { transform: 'translateX(2%)' },
     { transform: 'translateY(2% * -2)' }
   ], {
@@ -73,102 +53,144 @@ function animation(target) {
   });
 }
 
-function clearForm() {
-  firstName.value = "";
-  lastName.value = "";
-  email.value = "";
-  birthDate.value = "";
-  tournament.value = "";
-  checkBox1.value = "";
-  textError.innerHTML = "";
-  firstNameValidation = false;
-  lastNameValidation = false;
-  emailValidation = false;
-  tournamentValidation = false;
-  birthDateValidation = false;
-  checkBox1Validation = false;
+/**
+ * Retourne si la value en fonction du type est valide ou pas
+ */
+
+function validateInput(input, type) {
+  let isValid = false;
+
+  if(type === "email") {
+    isValid = emailValidation(input);
+  } else if (type === "date") {
+    isValid = dateValidation(input);
+  } else if (type === "name") {
+    isValid = nameValidation(input);
+  } else if (type === "number") {
+    isValid = numberValidation(input);
+  } else if (type === "checkbox") {
+    isValid = checkboxValidation(input);
+  } else if (type === "radio") {
+    isValid = radioValidation(input);
+  }
+  return isValid;
 }
 
-function firstNameFunction() {
-  if(firstName.value.length >= 2) {
-    firstNameValidation = true;
-    errorFirst.style.display = "none";
-    firstName.style.backgroundColor="white";
+/**
+ * Retourne si la value correspond à un email valide
+ */
+
+function emailValidation(input) {
+  const regexMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+  if(input.value.match(regexMail)) {
+    return true;
   } else {
-    firstName.style.backgroundColor="#fe142f";
-    animation(firstName);
-    errorFirst.style.display = "block";
+    return false;
   }
 }
 
-function lastNameFunction() {
-  if(lastName.value.length >= 2) {
-    lastNameValidation = true;
-    errorLast.style.display = "none";
-    lastName.style.backgroundColor="white";
+/**
+ * Retourne si la value correspond à une date valide
+ */
+
+ function dateValidation(input) {
+  if(input.valueAsNumber > 0) {
+    return true;
   } else {
-    lastName.style.backgroundColor="#fe142f";
-    animation(lastName);
-    errorLast.style.display = "block";
+    return false;
   }
 }
 
-function emailFunction() {
-  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  if(emailRegex.test(email.value)) {
-    emailValidation = true;
-    errorEmail.style.display = "none";
-    email.style.backgroundColor="white";
+/**
+ * Retourne si la value correspond à un nom valide
+ */
+
+function nameValidation(input) {
+  if(input.value.length >= 2) {
+    return true;
   } else {
-    email.style.backgroundColor="#fe142f";
-    animation(email);
-    errorEmail.style.display = "block";
+    return false;
   }
 }
 
-function tournamentFunction() {
-  if(tournament.value.length >= 1) {
-    tournamentValidation = true;
-    errorTournament.style.display = "none";
-    tournament.style.backgroundColor="white";
+/**
+ * Retourne si la value correspond à un nombre valide
+ */
+
+ function numberValidation(input) {
+  if(input.value.length > 0) {
+    return true;
   } else {
-    tournament.style.backgroundColor="#fe142f";
-    animation(tournament);
-    errorTournament.style.display = "block";
+    return false;
   }
 }
 
-function checkBox1Function() {
-  if(checkBox1.checked) {
-    checkBox1Validation = true;
-    errorCheckbox1.style.display = "none";
+/**
+ * Retourne si la value correspond à la checkbox cochée
+ */
+
+ function checkboxValidation(input) {
+  if(input.checked) {
+    return true;
   } else {
-    errorCheckbox1.style.display = "block";
+    return false;
   }
 }
 
-function birthDateFunction() {
-  if(birthDate.valueAsNumber >= 1) {
-    birthDateValidation = true;
-    errorBirthdate.style.display = "none";
-    birthDate.style.backgroundColor="white";
-  } else {
-    animation(birthDate);
-    errorBirthdate.style.display = "block";
-    birthDate.style.backgroundColor="#fe142f";
-  }
+/**
+ * Retourne si la value correspond à la checkbox cochée
+ */
+
+ function radioValidation(input) {
+   for (let i = 0, len = input.length; i < len; i++) {
+     if(input[i].checked) {
+       return true;
+     }
+    }
+  return false;
 }
 
-function testOK() {
-  if(firstNameValidation
-    && lastNameValidation
-    && emailValidation
-    && tournamentValidation
-    && checkBox1Validation
-    && birthDateValidation) {
-    closeModal();
-    clearForm();
+/**
+ * Validation du formulaire
+ */
+
+function validate(event) {
+
+  event.preventDefault();
+
+  let firstNameValidation = inputValidationDisplay(firstnameInput, "name");
+  let lastNameValidation = inputValidationDisplay(lastnameInput, "name");
+  let emailValidation = inputValidationDisplay(emailInput, "email");
+  let dateValidation = inputValidationDisplay(birthdateInput, "date");
+  let numberValidation = inputValidationDisplay(tournamentInput, "number");
+  let checkboxValidation = validateInput(checkboxInput, "checkbox");
+  let radioValidation = validateInput(radioInput, "radio");
+
+  if(firstNameValidation &&
+     lastNameValidation &&
+     emailValidation &&
+     dateValidation &&
+     numberValidation &&
+     checkboxValidation &&
+     radioValidation) {
+      textError.innerHTML = "";
+      closeModal();
+     } else {
+      textError.innerHTML = "Certains champs ne sont pas correctement remplis";
+     }
+}
+
+function inputValidationDisplay(input, type) {
+  let isValid = validateInput(input, type);
+
+  if(isValid) {
+    input.value.display = "none";
+    input.style.backgroundColor="white";
   } else {
-    textError.innerHTML = "Certains champs ne sont pas correctement remplis";
+    input.style.backgroundColor="#fe142f";
+    animation(input);
+    input.style.display = "block";
   }
+  return isValid;
 }

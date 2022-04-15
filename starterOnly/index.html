@@ -60,7 +60,7 @@
               name="reserve"
               action="index.html"
               method="get"
-              onsubmit="validate(e);"
+              onsubmit="validate(event);"
             >
               <div
                 class="formData">
@@ -71,7 +71,7 @@
                   id="first"
                   name="first"
                   minlength="2"
-                  oninput="firstNameFunction()"
+                  onfocusout="inputValidationDisplay(firstnameInput, 'name')"
                 /><br>
               </div>
               <p class="errorMessage" id="errorFirst">Veuillez entrer 2 caractères ou plus pour le champ du prénom.</p>
@@ -83,7 +83,7 @@
                   type="text"
                   id="last"
                   name="last"
-                  oninput="lastNameFunction()"
+                  onfocusout="inputValidationDisplay(lastnameInput, 'name')"
                 /><br>
               </div>
               <p class="errorMessage" id="errorLast">Veuillez entrer 2 caractères ou plus pour le champ du nom.</p>
@@ -95,7 +95,7 @@
                   type="email"
                   id="email"
                   name="email"
-                  oninput="emailFunction()"
+                  onfocusout="inputValidationDisplay(emailInput, 'email')"
                 /><br>
               </div>
               <p class="errorMessage" id="errorEmail">Veuillez entrer une adresse mail correcte.</p>
@@ -107,14 +107,14 @@
                   type="date"
                   id="birthdate"
                   name="birthdate"
-                  oninput="birthDateFunction()"
+                  onfocusout="inputValidationDisplay(birthdateInput, 'date')"
                 /><br>
               </div>
               <p class="errorMessage" id="errorBirthdate">Vous devez entrer votre date de naissance.</p>
               <div
                 class="formData">
                 <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" oninput="tournamentFunction()">
+                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" onfocusout="inputValidationDisplay(tournamentInput, 'number')">
               </div>
               <p class="errorMessage" id="errorTournament">Veuillez indiquer une valeur.</p>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
