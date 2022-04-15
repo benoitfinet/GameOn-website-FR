@@ -223,6 +223,10 @@ function inputValidationCheckbox(input, type, error) {
   return isValid;
 }
 
+/**
+ * Validation when user is writing
+ */
+
 function inputValidationInstant(input, type, error) {
   let isValid = validateInput(input, type, error);
 
