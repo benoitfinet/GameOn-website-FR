@@ -539,3 +539,12 @@ footer {
   display: none;
 }
 
+.confirmationMessage {
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  width: 250px;
+  margin: 15px auto;
+  justify-content: center;
+}
+

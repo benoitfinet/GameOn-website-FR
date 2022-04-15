@@ -12,6 +12,7 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalCross = document.querySelectorAll(".close");
+const formContent = document.getElementById("formContent");
 
 // modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -114,7 +115,7 @@ function emailValidation(input) {
  */
 
 function nameValidation(input) {
-  if(input.value.length >= 2) {
+  if(input.value.trim().length >= 2) {
     return true;
   } else {
     return false;
@@ -182,7 +183,8 @@ function validate(event) {
      checkboxValidation &&
      radioValidation) {
       textError.innerHTML = "";
-      closeModal();
+      formContent.innerHTML =
+      "<div class='confirmationMessage'><p>Votre réservation est bien prise en compte</p></br><span onclick='closeModal()' class='btn-submit button'>Fermer</span></div>";
      } else {
       textError.innerHTML = "Certains champs ne sont pas correctement remplis";
      }
