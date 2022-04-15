@@ -71,7 +71,8 @@
                   id="first"
                   name="first"
                   minlength="2"
-                  onfocusout="inputValidationDisplay(firstnameInput, 'name')"
+                  onfocusout="inputValidationDisplay(firstnameInput, 'name', firstnameError)"
+                  onkeyup="inputValidationInstant(firstnameInput, 'name', firstnameError)"
                 /><br>
               </div>
               <p class="errorMessage" id="errorFirst">Veuillez entrer 2 caractères ou plus pour le champ du prénom.</p>
@@ -83,7 +84,8 @@
                   type="text"
                   id="last"
                   name="last"
-                  onfocusout="inputValidationDisplay(lastnameInput, 'name')"
+                  onfocusout="inputValidationDisplay(lastnameInput, 'name', lastnameError)"
+                  onkeyup="inputValidationInstant(lastnameInput, 'name', lastnameError)"
                 /><br>
               </div>
               <p class="errorMessage" id="errorLast">Veuillez entrer 2 caractères ou plus pour le champ du nom.</p>
@@ -95,7 +97,8 @@
                   type="email"
                   id="email"
                   name="email"
-                  onfocusout="inputValidationDisplay(emailInput, 'email')"
+                  onfocusout="inputValidationDisplay(emailInput, 'email', emailError)"
+                  onkeyup="inputValidationInstant(emailInput, 'email', emailError)"
                 /><br>
               </div>
               <p class="errorMessage" id="errorEmail">Veuillez entrer une adresse mail correcte.</p>
@@ -107,14 +110,24 @@
                   type="date"
                   id="birthdate"
                   name="birthdate"
-                  onfocusout="inputValidationDisplay(birthdateInput, 'date')"
+                  onfocusout="inputValidationDisplay(birthdateInput, 'date', birthdateError)"
+                  onchange="inputValidationInstant(birthdateInput, 'date', birthdateError)"
                 /><br>
               </div>
               <p class="errorMessage" id="errorBirthdate">Vous devez entrer votre date de naissance.</p>
               <div
                 class="formData">
                 <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" onfocusout="inputValidationDisplay(tournamentInput, 'number')">
+                <input
+                  type="number"
+                  class="text-control"
+                  id="quantity"
+                  name="quantity"
+                  min="0"
+                  max="99"
+                  onfocusout="inputValidationDisplay(tournamentInput, 'number', tournamentError)"
+                  onchange="inputValidationInstant(tournamentInput, 'number', tournamentError)"
+                  onkeyup="inputValidationInstant(tournamentInput, 'number', tournamentError)">
               </div>
               <p class="errorMessage" id="errorTournament">Veuillez indiquer une valeur.</p>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
@@ -126,6 +139,7 @@
                   id="location1"
                   name="location"
                   value="New York"
+                  oninput="inputValidationCheckbox(radioInput, 'radio', radioError);"
                 />
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
@@ -137,6 +151,7 @@
                   id="location2"
                   name="location"
                   value="San Francisco"
+                  oninput="inputValidationCheckbox(radioInput, 'radio', radioError);"
                 />
                 <label class="checkbox-label" for="location2">
                   <span class="checkbox-icon"></span>
@@ -148,6 +163,7 @@
                   id="location3"
                   name="location"
                   value="Seattle"
+                  oninput="inputValidationCheckbox(radioInput, 'radio', radioError);"
                 />
                 <label class="checkbox-label" for="location3">
                   <span class="checkbox-icon"></span>
@@ -159,6 +175,7 @@
                   id="location4"
                   name="location"
                   value="Chicago"
+                  oninput="inputValidationCheckbox(radioInput, 'radio', radioError);"
                 />
                 <label class="checkbox-label" for="location4">
                   <span class="checkbox-icon"></span>
@@ -170,6 +187,7 @@
                   id="location5"
                   name="location"
                   value="Boston"
+                  oninput="inputValidationCheckbox(radioInput, 'radio', radioError);"
                 />
                 <label class="checkbox-label" for="location5">
                   <span class="checkbox-icon"></span>
@@ -181,12 +199,14 @@
                   id="location6"
                   name="location"
                   value="Portland"
+                  oninput="inputValidationCheckbox(radioInput, 'radio', radioError);"
                 />
                 <label class="checkbox-label" for="location6">
                   <span class="checkbox-icon"></span>
                   Portland</label
                 >
               </div>
+              <p class="errorMessage" id="errorRadio">Veuillez sélectionner un lieu</p>
 
               <div
                 class="formData">
@@ -195,7 +215,7 @@
                   type="checkbox"
                   id="checkbox1"
                   checked
-                  oninput="checkBox1Function()"
+                  oninput="inputValidationCheckbox(checkboxInput, 'checkbox', checkboxError);"
                 />
                 <label class="checkbox2-label" for="checkbox1" required>
                   <span class="checkbox-icon"></span>

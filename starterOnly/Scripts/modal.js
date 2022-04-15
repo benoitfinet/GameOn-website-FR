@@ -38,6 +38,13 @@ const tournamentInput = document.getElementById("quantity");
 const checkboxInput = document.getElementById("checkbox1");
 const radioInput = document.getElementsByName("location");
 const textError = document.getElementById("textUnderButton");
+const firstnameError = document.getElementById("errorFirst");
+const lastnameError = document.getElementById("errorLast");
+const emailError = document.getElementById("errorEmail");
+const birthdateError = document.getElementById("errorBirthdate");
+const tournamentError = document.getElementById("errorTournament");
+const checkboxError = document.getElementById("errorCheckbox1");
+const radioError = document.getElementById("errorRadio");
 
 /**
  * Appelle l'animation en cas d'erreur
@@ -159,13 +166,13 @@ function validate(event) {
 
   event.preventDefault();
 
-  let firstNameValidation = inputValidationDisplay(firstnameInput, "name");
-  let lastNameValidation = inputValidationDisplay(lastnameInput, "name");
-  let emailValidation = inputValidationDisplay(emailInput, "email");
-  let dateValidation = inputValidationDisplay(birthdateInput, "date");
-  let numberValidation = inputValidationDisplay(tournamentInput, "number");
-  let checkboxValidation = validateInput(checkboxInput, "checkbox");
-  let radioValidation = validateInput(radioInput, "radio");
+  let firstNameValidation = inputValidationDisplay(firstnameInput, "name", firstnameError);
+  let lastNameValidation = inputValidationDisplay(lastnameInput, "name", lastnameError);
+  let emailValidation = inputValidationDisplay(emailInput, "email", emailError);
+  let dateValidation = inputValidationDisplay(birthdateInput, "date", birthdateError);
+  let numberValidation = inputValidationDisplay(tournamentInput, "number", tournamentError);
+  let checkboxValidation = inputValidationCheckbox(checkboxInput, "checkbox", checkboxError);
+  let radioValidation = inputValidationCheckbox(radioInput, "radio", radioError);
 
   if(firstNameValidation &&
      lastNameValidation &&
@@ -181,16 +188,45 @@ function validate(event) {
      }
 }
 
-function inputValidationDisplay(input, type) {
-  let isValid = validateInput(input, type);
+/**
+ * Validation for all expect checkbox and radio
+ */
+
+function inputValidationDisplay(input, type, error) {
+  let isValid = validateInput(input, type, error);
 
   if(isValid) {
-    input.value.display = "none";
     input.style.backgroundColor="white";
+    error.style.display = "none";
   } else {
     input.style.backgroundColor="#fe142f";
     animation(input);
-    input.style.display = "block";
+    error.style.display = "block";
+  }
+  return isValid;
+}
+
+/**
+ * Validation for checkbox and radio
+ */
+
+function inputValidationCheckbox(input, type, error) {
+  let isValid = validateInput(input, type, error);
+
+  if(isValid) {
+    error.style.display = "none";
+  } else {
+    error.style.display = "block";
+  }
+  return isValid;
+}
+
+function inputValidationInstant(input, type, error) {
+  let isValid = validateInput(input, type, error);
+
+  if(isValid) {
+    input.style.backgroundColor="white";
+    error.style.display = "none";
   }
   return isValid;
 }
