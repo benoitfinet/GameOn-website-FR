@@ -50,7 +50,6 @@ const radioError = document.getElementById("errorRadio");
 /**
  * Appelle l'animation en cas d'erreur
  */
-
 function animation(input) {
   input.animate([
     { transform: 'translateX(2%)' },
@@ -64,12 +63,11 @@ function animation(input) {
 /**
  * Retourne si la value en fonction du type est valide ou pas
  */
-
 function validateInput(input, type) {
   let isValid = false;
 
   if(type === "email") {
-    isValid = emailValidation(input);
+    isValid = emailValidation(input.value);
   } else if (type === "date") {
     isValid = dateValidation(input);
   } else if (type === "name") {
@@ -87,72 +85,46 @@ function validateInput(input, type) {
 /**
  * Retourne si la value correspond à un email valide
  */
-
-function emailValidation(input) {
+ function emailValidation(value) {
   const regexMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-  if(input.value.match(regexMail)) {
-    return true;
-  } else {
-    return false;
-  }
+  return regexMail.test(value)
 }
 
 /**
  * Retourne si la value correspond à une date valide
  */
-
  function dateValidation(input) {
-  if(input.valueAsNumber > 0) {
-    return true;
-  } else {
-    return false;
-  }
+  return input.valueAsNumber > 0
 }
 
 /**
  * Retourne si la value correspond à un nom valide
  */
-
 function nameValidation(input) {
-  if(input.value.trim().length >= 2) {
-    return true;
-  } else {
-    return false;
-  }
+  return input.value.trim().length >= 2
 }
 
 /**
  * Retourne si la value correspond à un nombre valide
  */
-
  function numberValidation(input) {
-  if(input.value.length > 0) {
-    return true;
-  } else {
-    return false;
-  }
+  return input.value.length > 0
 }
 
 /**
  * Retourne si la value correspond à la checkbox cochée
  */
-
  function checkboxValidation(input) {
-  if(input.checked) {
-    return true;
-  } else {
-    return false;
-  }
+  return input.checked
 }
 
 /**
  * Retourne si la value correspond à la checkbox cochée
  */
-
- function radioValidation(input) {
-   for (let i = 0, len = input.length; i < len; i++) {
-     if(input[i].checked) {
+ function radioValidation(inputs) {
+   for (let i = 0; i < inputs.length; i++) {
+     if(inputs[i].checked) {
        return true;
      }
     }
@@ -162,7 +134,6 @@ function nameValidation(input) {
 /**
  * Validation du formulaire
  */
-
 function validate(event) {
 
   event.preventDefault();
@@ -184,7 +155,7 @@ function validate(event) {
      radioValidation) {
       textError.innerHTML = "";
       formContent.innerHTML =
-      "<div class='confirmationMessage'><p>Votre réservation est bien prise en compte</p></br><span onclick='closeModal()' class='btn-submit button'>Fermer</span></div>";
+      "<div class='confirmationMessage'><p>Votre réservation est bien prise en compte</p></br><span onclick='closeModal()' class='btn-submit button btn-confirmation'>Fermer</span></div>";
      } else {
       textError.innerHTML = "Certains champs ne sont pas correctement remplis";
      }
@@ -193,15 +164,14 @@ function validate(event) {
 /**
  * Validation for all expect checkbox and radio
  */
-
 function inputValidationDisplay(input, type, error) {
   let isValid = validateInput(input, type, error);
 
   if(isValid) {
-    input.style.backgroundColor="white";
+    input.style.border="none";
     error.style.display = "none";
   } else {
-    input.style.backgroundColor="#fe142f";
+    input.style.border="3px outset #fe142f";
     animation(input);
     error.style.display = "block";
   }
@@ -211,7 +181,6 @@ function inputValidationDisplay(input, type, error) {
 /**
  * Validation for checkbox and radio
  */
-
 function inputValidationCheckbox(input, type, error) {
   let isValid = validateInput(input, type, error);
 
@@ -231,7 +200,7 @@ function inputValidationInstant(input, type, error) {
   let isValid = validateInput(input, type, error);
 
   if(isValid) {
-    input.style.backgroundColor="white";
+    input.style.border="none";
     error.style.display = "none";
   }
   return isValid;
