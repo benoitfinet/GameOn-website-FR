@@ -120,7 +120,7 @@ function nameValidation(input) {
 }
 
 /**
- * Retourne si la value correspond à la checkbox cochée
+ * Retourne si la value correspond à la checkbox "radio" cochée
  */
  function radioValidation(inputs) {
    for (let i = 0; i < inputs.length; i++) {
@@ -155,7 +155,11 @@ function validate(event) {
      radioValidation) {
       textError.innerHTML = "";
       formContent.innerHTML =
-      "<div class='confirmationMessage'><p>Votre réservation est bien prise en compte</p></br><span onclick='closeModal()' class='btn-submit button btn-confirmation'>Fermer</span></div>";
+      `<div class='confirmationMessage'>
+      <p>Votre réservation est bien prise en compte</p>
+      </br>
+      <span onclick='closeModal()' class='btn-submit button btn-confirmation'>Fermer</span>
+      </div>`;
      } else {
       textError.innerHTML = "Certains champs ne sont pas correctement remplis";
      }
